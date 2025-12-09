@@ -1,0 +1,28 @@
+# CCTP CLI Configuration Example
+network: testnet
+
+# Keystore path (optional - defaults to OS-specific location)
+# macOS: ~/Library/Ethereum/keystore
+# Linux: ~/.ethereum/keystore
+# Windows: %APPDATA%\Ethereum\keystore
+# Uncomment and customize if you need a different location:
+# keystore_path: /custom/path/to/keystore
+
+# Custom RPC endpoints (optional)
+# Chain names must match exactly (case-sensitive)
+# Available chains: Ethereum, Avalanche, OP Mainnet, Arbitrum, Base, Polygon PoS, etc.
+# rpc_urls:
+#  Ethereum: https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
+#  Arbitrum: https://arb-mainnet.g.alchemy.com/v2/YOUR_KEY
+
+# Default values (optional)
+# defaults:
+#  amount: "100"
+#  recipient: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
+
+# Saved addresses for quick access (optional)
+# saved_addresses:
+#   - name: "My Wallet"
+#     address: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
+#   - name: "Treasury"
+#     address: "0x1234567890123456789012345678901234567890"
