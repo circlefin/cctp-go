@@ -22,7 +22,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/lipgloss/list"
 	"github.com/charmbracelet/lipgloss/table"
-	"github.com/pxgray/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/internal/logger"
 )
 
 // Color palette with adaptive colors for light/dark terminal support

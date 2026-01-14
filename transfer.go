@@ -23,14 +23,14 @@ import (
 	"time"
 
 	"github.com/charmbracelet/log"
+	"github.com/circlefin/cctp-go/internal/util"
+	"github.com/circlefin/cctp-go/internal/wallet"
+	"github.com/circlefin/cctp-go/messagetransmitter"
+	"github.com/circlefin/cctp-go/tokenmessenger"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/v2"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/pxgray/cctp-go/internal/util"
-	"github.com/pxgray/cctp-go/internal/wallet"
-	"github.com/pxgray/cctp-go/messagetransmitter"
-	"github.com/pxgray/cctp-go/tokenmessenger"
 )
 
 // TransferStep represents a step in the transfer process

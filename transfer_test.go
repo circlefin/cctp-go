@@ -20,8 +20,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/pxgray/cctp-go/internal/wallet"
-	"github.com/pxgray/cctp-go/testutil"
+	"github.com/circlefin/cctp-go/internal/wallet"
+	"github.com/circlefin/cctp-go/testutil"
 )
 
 func TestNewTransferOrchestrator_InvalidRPC(t *testing.T) {

@@ -20,10 +20,10 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/bubbles/list"
-	"github.com/charmbracelet/lipgloss"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
+	"github.com/circlefin/cctp-go/internal/wallet"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/pxgray/cctp-go/internal/wallet"
 )
 
 // accountItem implements list.Item for account selection
@@ -127,12 +127,12 @@ func (m Model) updateAccountSelection(msg tea.Msg) (tea.Model, tea.Cmd) {
 			items[i] = accountItem{address: addr, index: i}
 		}
 		m.accountList.SetItems(items)
-		
+
 		// Set size if we have window dimensions
 		if m.width > 0 && m.height > 0 {
 			m.accountList.SetSize(m.width-4, m.height-12)
 		}
-		
+
 		return m, nil
 
 	case tea.KeyMsg:
@@ -170,21 +170,21 @@ func (m Model) updatePasswordInput(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case WalletLoadedMsg:
 		m.loadingWallet = false
-		
+
 		// SECURITY: Always clear password immediately, even on error
 		m.passwordInput.SetValue("")
-		
+
 		if msg.Error != nil {
 			// Password was incorrect or other error
 			m.passwordAttempts++
-			
+
 			if m.passwordAttempts >= m.maxPasswordAttempts {
 				// Max attempts reached, exit
 				m.err = fmt.Errorf("maximum password attempts (%d) exceeded: %w", m.maxPasswordAttempts, msg.Error)
 				m.changeState(StateError)
 				return m, nil
 			}
-			
+
 			// Allow retry - stay on password input screen with error message
 			m.err = msg.Error
 			m.passwordInput.Focus()
@@ -194,17 +194,17 @@ func (m Model) updatePasswordInput(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Wallet loaded successfully - reset attempt counter
 		m.wallet = msg.Wallet
 		m.passwordAttempts = 0
-		
+
 		// Set default recipient to wallet address
 		m.recipientInput.SetValue(msg.Wallet.Address.Hex())
-		
+
 		// Check if we should go to resume mode
 		if m.resumeMode {
 			m.changeState(StateResumeInput)
 			m.txHashInput.Focus()
 			return m, m.txHashInput.Focus()
 		}
-		
+
 		// Go to network selection
 		m.changeState(StateSelectNetwork)
 		return m, nil
@@ -237,7 +237,7 @@ func (m Model) updatePasswordInput(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			// Clear any previous error
 			m.err = nil
-			
+
 			// Start loading wallet
 			m.loadingWallet = true
 			selectedAddress := m.availableAccounts[m.selectedAccount]
@@ -258,36 +258,36 @@ func (m Model) updatePasswordInput(msg tea.Msg) (tea.Model, tea.Cmd) {
 // viewAccountSelection renders the account selection screen
 func (m Model) viewAccountSelection() string {
 	title := RenderTitle("Select Keystore Account")
-	
+
 	var content string
 	if len(m.availableAccounts) == 0 {
 		content = lipgloss.JoinHorizontal(lipgloss.Left, m.spinner.View(), " Loading accounts...")
 	} else {
 		content = m.accountList.View()
 	}
-	
+
 	help := RenderHelp("↑/↓: navigate • enter: select • q: quit")
-	
+
 	return lipgloss.JoinVertical(lipgloss.Left, title, "", content, "", help)
 }
 
 // viewPasswordInput renders the password input screen
 func (m Model) viewPasswordInput() string {
 	title := RenderTitle("Enter Keystore Password")
-	
+
 	selectedAddr := ""
 	if m.selectedAccount < len(m.availableAccounts) {
 		selectedAddr = m.availableAccounts[m.selectedAccount].Hex()
 	}
-	
+
 	accountInfo := RenderInfo(fmt.Sprintf("Account: %s", selectedAddr))
-	
+
 	elements := []string{title, "", accountInfo, ""}
-	
+
 	// Show error message if there was a failed attempt
 	if m.err != nil && m.passwordAttempts > 0 {
 		attemptsLeft := m.maxPasswordAttempts - m.passwordAttempts
-		elements = append(elements, RenderError(fmt.Sprintf("Incorrect password (attempt %d/%d). %d attempt(s) remaining.", 
+		elements = append(elements, RenderError(fmt.Sprintf("Incorrect password (attempt %d/%d). %d attempt(s) remaining.",
 			m.passwordAttempts, m.maxPasswordAttempts, attemptsLeft)))
 		elements = append(elements, "")
 	} else if m.err != nil {
@@ -295,7 +295,7 @@ func (m Model) viewPasswordInput() string {
 		elements = append(elements, RenderWarning(m.err.Error()))
 		elements = append(elements, "")
 	}
-	
+
 	var content string
 	if m.loadingWallet {
 		content = lipgloss.JoinHorizontal(lipgloss.Left, m.spinner.View(), " Loading wallet...")
@@ -303,9 +303,8 @@ func (m Model) viewPasswordInput() string {
 		passwordView := FocusedInputStyle.Render(m.passwordInput.View())
 		content = lipgloss.JoinVertical(lipgloss.Left, "Password:", passwordView)
 	}
-	
+
 	elements = append(elements, content, "", RenderHelp("enter: unlock • esc: back • q: quit"))
-	
+
 	return lipgloss.JoinVertical(lipgloss.Left, elements...)
 }
-
