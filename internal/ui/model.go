@@ -26,11 +26,11 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/config"
+	"github.com/circlefin/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/internal/wallet"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/config"
-	"github.com/pxgray/cctp-go/internal/logger"
-	"github.com/pxgray/cctp-go/internal/wallet"
 )
 
 // AppState represents the current state of the application

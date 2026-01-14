@@ -1,4 +1,4 @@
-module github.com/pxgray/cctp-go
+module github.com/circlefin/cctp-go
 
 go 1.25.2
 

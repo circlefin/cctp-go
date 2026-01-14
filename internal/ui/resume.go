@@ -23,15 +23,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/charmbracelet/lipgloss"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/messagetransmitter"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/v2"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/logger"
-	"github.com/pxgray/cctp-go/messagetransmitter"
 )
 
 // updateResumeInput handles updates for resume input state
@@ -208,7 +208,7 @@ func (m Model) resumeTransfer(txHash string) tea.Cmd {
 
 				log.Error("Destination domain not found in configuration", "dest_domain", destDomain, "network", networkType)
 				log.Error("Available domains", "network", networkType, "domains", availableDomains)
-				
+
 				// Write log to file on error
 				_ = logger.WriteToFile()
 
@@ -320,42 +320,42 @@ func (m Model) resumeTransfer(txHash string) tea.Cmd {
 				Message: fmt.Sprintf("Preparing mint (msg: %d bytes, att: %d bytes)", len(messageBytes), len(attestationBytes)),
 			}
 
-		// Use V2 bindings to mint
-		messageTransmitterV2 := messagetransmitter.NewMessageTransmitterV2()
-		messageTransmitterAddr := common.HexToAddress(m.destChain.MessageTransmitterV2)
-		messageTransmitterInstance := messageTransmitterV2.Instance(destClient, messageTransmitterAddr)
-		
-		// Pack the receiveMessage call
-		mintData := messageTransmitterV2.PackReceiveMessage(messageBytes, attestationBytes)
+			// Use V2 bindings to mint
+			messageTransmitterV2 := messagetransmitter.NewMessageTransmitterV2()
+			messageTransmitterAddr := common.HexToAddress(m.destChain.MessageTransmitterV2)
+			messageTransmitterInstance := messageTransmitterV2.Instance(destClient, messageTransmitterAddr)
 
-		// Create transaction options for mint
-		authDest, err := m.wallet.CreateTransactOpts(ctx, destClient, m.destChain.ChainID)
-		if err != nil {
-			updates <- cctp.TransferUpdate{
-				Step:  cctp.StepError,
-				Error: fmt.Errorf("failed to create auth: %w", err),
+			// Pack the receiveMessage call
+			mintData := messageTransmitterV2.PackReceiveMessage(messageBytes, attestationBytes)
+
+			// Create transaction options for mint
+			authDest, err := m.wallet.CreateTransactOpts(ctx, destClient, m.destChain.ChainID)
+			if err != nil {
+				updates <- cctp.TransferUpdate{
+					Step:  cctp.StepError,
+					Error: fmt.Errorf("failed to create auth: %w", err),
+				}
+				return
 			}
-			return
-		}
 
-		// Use V2 bindings to send receiveMessage transaction
-		mintTx, err := bind.Transact(messageTransmitterInstance, authDest, mintData)
-		if err != nil {
-			updates <- cctp.TransferUpdate{
-				Step:  cctp.StepError,
-				Error: fmt.Errorf("failed to send mint tx: %w", err),
+			// Use V2 bindings to send receiveMessage transaction
+			mintTx, err := bind.Transact(messageTransmitterInstance, authDest, mintData)
+			if err != nil {
+				updates <- cctp.TransferUpdate{
+					Step:  cctp.StepError,
+					Error: fmt.Errorf("failed to send mint tx: %w", err),
+				}
+				return
 			}
-			return
-		}
 
-		updates <- cctp.TransferUpdate{
-			Step:    cctp.StepMintingWait,
-			Message: "Waiting for mint confirmation...",
-			TxHash:  mintTx.Hash().Hex(),
-		}
+			updates <- cctp.TransferUpdate{
+				Step:    cctp.StepMintingWait,
+				Message: "Waiting for mint confirmation...",
+				TxHash:  mintTx.Hash().Hex(),
+			}
 
-		// Wait for mint confirmation
-		_, err = bind.WaitMined(ctx, destClient, mintTx.Hash())
+			// Wait for mint confirmation
+			_, err = bind.WaitMined(ctx, destClient, mintTx.Hash())
 			if err != nil {
 				updates <- cctp.TransferUpdate{
 					Step:  cctp.StepError,

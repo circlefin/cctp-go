@@ -23,7 +23,7 @@ A Go SDK and Terminal UI-based CLI tool for executing Circle's CCTP V2 cross-cha
 
 ```bash
 # Clone the repository
-git clone https://github.com/pxgray/cctp-go
+git clone https://github.com/circlefin/cctp-go
 cd cctp-go
 
 # Install dependencies
@@ -71,7 +71,7 @@ task clean
 The CCTP SDK can be imported and used in your Go applications. When developing locally, you can reference it using a `replace` directive in your `go.mod` file:
 
 ```go
-replace github.com/pxgray/cctp-go => /path/to/local/cctp-go
+replace github.com/circlefin/cctp-go => /path/to/local/cctp-go
 ```
 
 Example usage in your Go application:
@@ -85,7 +85,7 @@ import (
     "math/big"
     
     "github.com/ethereum/go-ethereum/common"
-    "github.com/pxgray/cctp-go"
+    "github.com/circlefin/cctp-go"
 )
 
 func main() {
@@ -119,7 +119,7 @@ The library provides default RPC endpoints for all supported chains, but integra
 package main
 
 import (
-    "github.com/pxgray/cctp-go"
+    "github.com/circlefin/cctp-go"
 )
 
 func main() {
@@ -172,7 +172,7 @@ import (
     "github.com/ethereum/go-ethereum/accounts/abi/bind/v2"
     "github.com/ethereum/go-ethereum/common"
     "github.com/ethereum/go-ethereum/ethclient"
-    "github.com/pxgray/cctp-go/tokenmessenger"
+    "github.com/circlefin/cctp-go/tokenmessenger"
 )
 
 func main() {

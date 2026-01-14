@@ -20,8 +20,8 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/pxgray/cctp-go/internal/config"
-	"github.com/pxgray/cctp-go/internal/ui"
+	"github.com/circlefin/cctp-go/internal/config"
+	"github.com/circlefin/cctp-go/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -86,4 +86,3 @@ func runResume(cmd *cobra.Command, args []string) error {
 
 	return nil
 }
-

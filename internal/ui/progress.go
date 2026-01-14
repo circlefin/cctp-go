@@ -21,8 +21,8 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/logger"
 )
 
 // updateProgress handles updates for progress state
