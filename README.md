@@ -318,7 +318,3 @@ This library uses [Go Ethereum V2 Contract Bindings](https://geth.ethereum.org/d
 - `BindCall()` - Make read-only contract calls
 - `BindTransact()` - Send transactions to contracts
 - `BindWaitMined()` - Wait for transaction confirmation
-
-## License
-
-MIT
