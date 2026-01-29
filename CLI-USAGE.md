@@ -4,9 +4,10 @@ This guide explains how to use the CCTP CLI with Cobra commands and Viper config
 
 ## Installation
 
-Build the CLI from source:
-```bash
-go build -o cctp ./cmd/cctp
+Use the following command to install the CLI:
+
+```shell
+go install github.com/circlefin/cctp-go/cli
 ```
 
 ## Basic Usage
