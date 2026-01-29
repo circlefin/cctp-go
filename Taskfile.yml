@@ -10,7 +10,7 @@ tasks:
     desc: Build the CLI binary
     cmds:
       - mkdir -p bin
-      - go build -o bin/cctp ./cmd/cli
+      - go build -o bin/cctp ./cli
   
   test:
     desc: Run all tests
@@ -39,4 +39,3 @@ tasks:
     cmds:
       - rm -rf bin
       - rm -f coverage.out coverage.html
-

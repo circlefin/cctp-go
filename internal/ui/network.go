@@ -22,7 +22,7 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/lipgloss"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/pxgray/cctp-go"
+	"github.com/circlefin/cctp-go"
 )
 
 // updateNetworkSelection handles updates for network selection state

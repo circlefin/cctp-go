@@ -23,7 +23,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/pxgray/cctp-go/internal/wallet"
+	"github.com/circlefin/cctp-go/internal/wallet"
 )
 
 // accountItem implements list.Item for account selection

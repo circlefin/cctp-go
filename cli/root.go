@@ -21,8 +21,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/pxgray/cctp-go/internal/config"
-	"github.com/pxgray/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/internal/config"
+	"github.com/circlefin/cctp-go/internal/logger"
 )
 
 const version = "0.2.0"

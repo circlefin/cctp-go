@@ -21,9 +21,9 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/config"
-	"github.com/pxgray/cctp-go/internal/ui"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/config"
+	"github.com/circlefin/cctp-go/internal/ui"
 	"github.com/spf13/cobra"
 )
 

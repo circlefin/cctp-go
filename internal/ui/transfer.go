@@ -26,9 +26,9 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/logger"
-	"github.com/pxgray/cctp-go/internal/util"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/internal/util"
 )
 
 // updateTransferInput handles updates for transfer input state

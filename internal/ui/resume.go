@@ -29,9 +29,9 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/v2"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/pxgray/cctp-go"
-	"github.com/pxgray/cctp-go/internal/logger"
-	"github.com/pxgray/cctp-go/messagetransmitter"
+	"github.com/circlefin/cctp-go"
+	"github.com/circlefin/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/messagetransmitter"
 )
 
 // updateResumeInput handles updates for resume input state
