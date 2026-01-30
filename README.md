@@ -19,7 +19,7 @@ A Go SDK and Terminal UI-based CLI tool for executing Circle's CCTP V2 cross-cha
 Install the CLI with the following command:
 
 ```shell
-go install github.com/circlefin/cctp-go/cli
+go install github.com/circlefin/cctp-go/cmd/cctp
 ```
 
 To use the CLI, you must have your wallet's private key stored in the [Geth keystore](https://geth.ethereum.org/docs/fundamentals/account-management#importing-a-keyfile).
