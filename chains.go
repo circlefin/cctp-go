@@ -251,7 +251,7 @@ func GetMainnetChains() []Chain {
 		},
 		{
 			Name:                 "HyperEVM",
-			ChainID:              big.NewInt(998),
+			ChainID:              big.NewInt(999),
 			Domain:               19,
 			RPC:                  "https://api.hyperevm.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
@@ -467,7 +467,7 @@ func GetTestnetChains() []Chain {
 		},
 		{
 			Name:                 "HyperEVM Testnet",
-			ChainID:              big.NewInt(999),
+			ChainID:              big.NewInt(998),
 			Domain:               19,
 			RPC:                  "https://api.testnet.hyperevm.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
