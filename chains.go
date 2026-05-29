@@ -256,7 +256,7 @@ func GetMainnetChains() []Chain {
 			RPC:                  "https://api.hyperevm.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
 			MessageTransmitterV2: messageTransmitterV2Addr,
-			USDC:                 "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+			USDC:                 "0xb88339CB7199b77E23DB6E890353E22632Ba630f",
 			Explorer:             "https://explorer.hyperevm.com",
 			IsTestnet:            false,
 			InstantFinality:      true, // HyperEVM has instant finality
@@ -472,7 +472,7 @@ func GetTestnetChains() []Chain {
 			RPC:                  "https://api.testnet.hyperevm.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
 			MessageTransmitterV2: messageTransmitterV2Addr,
-			USDC:                 "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
+			USDC:                 "0x2B3370eE501B4a559b57D449569354196457D8Ab",
 			Explorer:             "https://testnet.explorer.hyperevm.com",
 			IsTestnet:            true,
 			InstantFinality:      true,
