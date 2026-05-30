@@ -232,7 +232,7 @@ func GetMainnetChains() []Chain {
 			RPC:                  "https://evm-rpc.sei-apis.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
 			MessageTransmitterV2: messageTransmitterV2Addr,
-			USDC:                 "0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1",
+			USDC:                 "0xe15fC38F6D8c56aF07bbCBe3BAf5708A2Bf42392",
 			Explorer:             "https://seiscan.io",
 			IsTestnet:            false,
 			InstantFinality:      true, // Sei has instant finality
@@ -448,7 +448,7 @@ func GetTestnetChains() []Chain {
 			RPC:                  "https://evm-rpc-testnet.sei-apis.com",
 			TokenMessengerV2:     tokenMessengerV2Addr,
 			MessageTransmitterV2: messageTransmitterV2Addr,
-			USDC:                 "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
+			USDC:                 "0x4fCF1784B31630811181f670Aea7A7bEF803eaED",
 			Explorer:             "https://testnet.seiscan.io",
 			IsTestnet:            true,
 			InstantFinality:      true,
