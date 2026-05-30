@@ -211,7 +211,7 @@ func TestGetTestnetChains(t *testing.T) {
 		{"Polygon PoS Amoy", 7, 80002, true},
 		{"Arc Testnet", 26, 5042002, true},
 		{"Sonic Testnet", 13, 57054, true},
-		{"Sei Testnet", 16, 713715, true},
+		{"Sei Testnet", 16, 1328, true},
 	}
 
 	chainMap := make(map[string]Chain)
