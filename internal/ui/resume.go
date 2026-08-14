@@ -28,6 +28,7 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/circlefin/cctp-go"
 	"github.com/circlefin/cctp-go/internal/logger"
+	"github.com/circlefin/cctp-go/internal/util"
 	"github.com/circlefin/cctp-go/messagetransmitter"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/v2"
 	"github.com/ethereum/go-ethereum/common"
@@ -355,8 +356,15 @@ func (m Model) resumeTransfer(txHash string) tea.Cmd {
 			}
 
 			// Wait for mint confirmation
-			_, err = bind.WaitMined(ctx, destClient, mintTx.Hash())
+			receipt, err := bind.WaitMined(ctx, destClient, mintTx.Hash())
 			if err != nil {
+				updates <- cctp.TransferUpdate{
+					Step:  cctp.StepError,
+					Error: fmt.Errorf("mint transaction failed: %w", err),
+				}
+				return
+			}
+			if err := util.ValidateTransactionReceipt(receipt); err != nil {
 				updates <- cctp.TransferUpdate{
 					Step:  cctp.StepError,
 					Error: fmt.Errorf("mint transaction failed: %w", err),
