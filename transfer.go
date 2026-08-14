@@ -192,10 +192,15 @@ func (t *TransferOrchestrator) Execute(ctx context.Context, updates chan<- Trans
 		}
 
 		// Wait for approval confirmation using V2 helper
-		_, err = bind.WaitMined(ctx, t.sourceClient, approveTx.Hash())
+		approveReceipt, err := bind.WaitMined(ctx, t.sourceClient, approveTx.Hash())
 		if err != nil {
 			updates <- TransferUpdate{Step: StepError, Error: fmt.Errorf("approval transaction failed: %w", err)}
 			return err
+		}
+		if err := util.ValidateTransactionReceipt(approveReceipt); err != nil {
+			wrappedErr := fmt.Errorf("approval transaction failed: %w", err)
+			updates <- TransferUpdate{Step: StepError, Error: wrappedErr}
+			return wrappedErr
 		}
 
 		updates <- TransferUpdate{
@@ -366,10 +371,15 @@ func (t *TransferOrchestrator) Execute(ctx context.Context, updates chan<- Trans
 	}
 
 	// Wait for burn confirmation using V2 helper
-	_, err = bind.WaitMined(ctx, t.sourceClient, burnTx.Hash())
+	burnReceipt, err := bind.WaitMined(ctx, t.sourceClient, burnTx.Hash())
 	if err != nil {
 		updates <- TransferUpdate{Step: StepError, Error: fmt.Errorf("burn transaction failed: %w", err)}
 		return err
+	}
+	if err := util.ValidateTransactionReceipt(burnReceipt); err != nil {
+		wrappedErr := fmt.Errorf("burn transaction failed: %w", err)
+		updates <- TransferUpdate{Step: StepError, Error: wrappedErr}
+		return wrappedErr
 	}
 
 	updates <- TransferUpdate{
@@ -458,6 +468,11 @@ func (t *TransferOrchestrator) Execute(ctx context.Context, updates chan<- Trans
 	if err != nil {
 		updates <- TransferUpdate{Step: StepError, Error: fmt.Errorf("mint transaction failed: %w", err)}
 		return err
+	}
+	if err := util.ValidateTransactionReceipt(receipt); err != nil {
+		wrappedErr := fmt.Errorf("mint transaction failed: %w", err)
+		updates <- TransferUpdate{Step: StepError, Error: wrappedErr}
+		return wrappedErr
 	}
 
 	log.Info("Mint transaction confirmed", "tx_hash", mintTx.Hash().Hex())
